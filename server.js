@@ -24,10 +24,12 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
 // Routes
-app.use('/api/stories', storyRoutes);
-// app.use('/api/continue', storyRoutes);
+app.use('/api/story', storyRoutes);
+app.use('/api/continue', storyRoutes);
 app.use('/api/options', optionRoutes);
-app.use('/api/characters', characterRoutes); // Use character routes
+app.use('/api/characters', characterRoutes);
+
+
 // Catch-all route for unmatched requests
 app.use((req, res) => {
   res.status(404).send('Page not found');

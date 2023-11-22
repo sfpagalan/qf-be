@@ -4,7 +4,7 @@ const axios = require('axios');
 const router = express.Router();
 const characterController = require('../controllers/characterController');
 
-router.get('/:characterId', characterController.getCharacter);
+router.get('/characters/:characterId', characterController.getCharacter);
 router.post('/', characterController.createCharacter);
 router.post('/:characterId/interact', characterController.interactWithCharacter);
 router.put('/:characterId', characterController.updateCharacter);
@@ -20,5 +20,6 @@ router.post('/characters', async (req, res) => {
     res.status(500).json({ error: 'Failed to create character' });
   }
 });
+
 
 module.exports = router;
