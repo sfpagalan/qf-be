@@ -63,7 +63,7 @@ const interactWithCharacter = async (req, res) => {
             stop: ['\n']
         };
 
-        const openAiResponse = await axios.post(process.env.OPEN_AI_URL, openAiPayload, {
+        const openAiResponse = await axios.post(process.env.OPENAI_URL, openAiPayload, {
             headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` }
         });
 

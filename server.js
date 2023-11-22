@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const storyRoutes = require('./src/routes/storyRoutes');
 const optionRoutes = require('./src/routes/optionRoutes');
 const characterRoutes = require('./src/routes/characterRoutes');
-require('dotenv').config();
 const connectDB = require('./src/config/db');
 
 connectDB();
