@@ -34,7 +34,7 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
-const port = 3002;
+const port = process.env.PORT || 3002;
 app.listen(port, () => {
   console.log(`Backend server is listening on port ${port}`);
 });
