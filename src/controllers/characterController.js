@@ -4,20 +4,23 @@ const axios = require('axios');
 // Retrieve a character by ID
 const getCharacter = async (req, res) => {
     try {
-        const character = await Character.findById(req.params.characterId);
+        const characterName = req.params.characterName;
+        const character = await Character.findByName(characterName);
         if (!character) {
-            return res.status(404).send('Character not found');
+          return res.status(404).json({ error: 'Character not found' });
         }
         res.json(character);
-    } catch (error) {
+      } catch (error) {
         console.error('Error fetching character:', error);
-        res.status(500).send('Internal Server Error');
-    }
+        res.status(500).json({ error: 'Error fetching character' });
+      }
 };
 
 // Create a new character
 const createCharacter = async (req, res) => {
     try {
+        console.log("Fetching character with ID:", character);
+
       const character = new Character(req.body);
       await character.save();
       res.status(201).json(character);

@@ -2,9 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const storyRoutes = require('./src/routes/storyRoutes');
-const optionRoutes = require('./src/routes/optionRoutes');
+// Removed bodyParser as express.json() is used
 const characterRoutes = require('./src/routes/characterRoutes');
 const connectDB = require('./src/config/db');
 
@@ -12,9 +10,7 @@ connectDB();
 
 const app = express();
 
-// Middleware for parsing JSON bodies
-// app.use(express.json());
-app.use(bodyParser.json());
+app.use(express.json()); // Using built-in express.json() middleware
 app.use(cors());
 
 // MongoDB connection
@@ -23,11 +19,12 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
 // Routes
-app.use('/api/story', storyRoutes);
-app.use('/api/continue', storyRoutes);
-app.use('/api/options', optionRoutes);
-app.use('/api/characters', characterRoutes);
+app.use('/characters', characterRoutes);
 
+// Error handling middleware
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
+});
 
 // Catch-all route for unmatched requests
 app.use((req, res) => {
